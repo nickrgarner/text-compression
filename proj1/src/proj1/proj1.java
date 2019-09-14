@@ -99,7 +99,7 @@ public class proj1 {
 			throw new IllegalArgumentException();
 		}
 		// Print out compression stats
-		System.out.print("\n0 Uncompressed: " + inCount + " bytes;  Compressed: " + outCount + " bytes");
+		System.out.print("0 Uncompressed: " + inCount + " bytes;  Compressed: " + outCount + " bytes");
 	}
 
 	public void decompress(BufferedReader input) {
@@ -115,16 +115,20 @@ public class proj1 {
 				while (Character.isLetter(symbol) || Character.isDigit(symbol)) {
 					word += symbol;
 					charNumber = input.read();
-					if (charNumber == 48) {
-						// Hit stats line, exit loop
-						break;
-					} else {
-						symbol = (char) charNumber;
-					}
+//					if (charNumber == 48) {
+//						// Hit stats line, exit loop
+//						break;
+//					} else {
+//						symbol = (char) charNumber;
+//					}
+					symbol = (char) charNumber;
 				}
 				// Hit end of word, search list if digit or print and add to list if word
 				if (Character.isDigit(word.toCharArray()[0])) {
-					if (Integer.valueOf(word) != 1) {
+					if (Integer.valueOf(word) == 0) {
+						// Hit stats line, exit loop
+						break;
+					} else if (Integer.valueOf(word) != 1) {
 						String temp = list.remove(Integer.valueOf(word));
 						list.addToFront(temp);
 					}
