@@ -13,19 +13,13 @@ public class proj1 {
 	}
 
 	public static void main(String[] args) {
-//		Scanner input = new Scanner(System.in);
-//		//input.useDelimiter("' '|,|\n|\"|.|\b|\t|/|%|&|!|@|#|$|?|-|_|>|<");
-//		input.useDelimiter("' '|\n");
-
+		// Create compressor object and reader
 		proj1 compressor = new proj1();
-
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-		
-		//compressor.compress(input);
 
 		try {
 			int firstChar = input.read();
-			if (firstChar == 0) {
+			if (firstChar == 48) {
 				// Consume space
 				input.read();
 				// TODO Decompress
@@ -114,14 +108,14 @@ public class proj1 {
 			int charNumber = input.read();
 			char symbol = (char) charNumber;
 			
-			while (charNumber != 0) {
+			while (charNumber != 48) {
 				// Word currently parsing
 				String word = "";
 				// Loop to end of word via letters or digits
 				while (Character.isLetter(symbol) || Character.isDigit(symbol)) {
 					word += symbol;
 					charNumber = input.read();
-					if (charNumber == 0) {
+					if (charNumber == 48) {
 						// Hit stats line, exit loop
 						break;
 					} else {
@@ -141,7 +135,7 @@ public class proj1 {
 				while (!Character.isLetter(symbol) && !Character.isDigit(symbol)) {
 					System.out.print(symbol);
 					charNumber = input.read();
-					if (charNumber == 0) {
+					if (charNumber == 48) {
 						// Hit stats line, exit loop
 						break;
 					} else {
