@@ -1,10 +1,8 @@
 package proj1;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class proj1 {
 
@@ -112,6 +110,48 @@ public class proj1 {
 
 	public void decompress(BufferedReader input) {
 		// TODO Check for 0 to know when to chop off stats line
+		try {
+			int charNumber = input.read();
+			char symbol = (char) charNumber;
+			
+			while (charNumber != 0) {
+				// Word currently parsing
+				String word = "";
+				// Loop to end of word via letters or digits
+				while (Character.isLetter(symbol) || Character.isDigit(symbol)) {
+					word += symbol;
+					charNumber = input.read();
+					if (charNumber == 0) {
+						// Hit stats line, exit loop
+						break;
+					} else {
+						symbol = (char) charNumber;
+					}
+				}
+				// Hit end of word, search list if digit or print and add to list if word
+				if (Character.isDigit(word.toCharArray()[0])) {
+					String temp = list.remove(Integer.valueOf(word));
+					list.addToFront(temp);
+					System.out.print(temp);
+				} else {
+					list.addToFront(word);
+					System.out.print(word);
+				}
+				// Loop to end of punctuation
+				while (!Character.isLetter(symbol) && !Character.isDigit(symbol)) {
+					System.out.print(symbol);
+					charNumber = input.read();
+					if (charNumber == 0) {
+						// Hit stats line, exit loop
+						break;
+					} else {
+						symbol = (char) charNumber;
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
