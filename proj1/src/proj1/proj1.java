@@ -42,7 +42,7 @@ public class proj1 {
 		// Tallies of chars read and printed, for stats line at end
 		int inCount = 0;
 		int outCount = 0;
-		
+
 		// Initialize compressed output with leading 0
 		System.out.print("0 ");
 		outCount += 2;
@@ -107,7 +107,7 @@ public class proj1 {
 		try {
 			int charNumber = input.read();
 			char symbol = (char) charNumber;
-			
+
 			while (charNumber != 48) {
 				// Word currently parsing
 				String word = "";
@@ -124,9 +124,11 @@ public class proj1 {
 				}
 				// Hit end of word, search list if digit or print and add to list if word
 				if (Character.isDigit(word.toCharArray()[0])) {
-					String temp = list.remove(Integer.valueOf(word));
-					list.addToFront(temp);
-					System.out.print(temp);
+					if (Integer.valueOf(word) != 1) {
+						String temp = list.remove(Integer.valueOf(word));
+						list.addToFront(temp);
+					}
+					System.out.print(list.get(1));
 				} else {
 					list.addToFront(word);
 					System.out.print(word);
@@ -244,8 +246,8 @@ public class proj1 {
 		}
 
 		/**
-		 * Iterates through linked list for element at given position and then removes and
-		 * returns the data at that position.
+		 * Iterates through linked list for element at given position and then removes
+		 * and returns the data at that position.
 		 * 
 		 * @param position Position of data to be removed and returned
 		 * @return Data at given position
@@ -270,6 +272,21 @@ public class proj1 {
 
 			previous.next = current.next;
 			size--;
+			return current.data;
+		}
+
+		/**
+		 * Traverses the list linearly and returns the Node data at the given position.
+		 * 
+		 * @param position Position of the data to return.
+		 * @return Data in the given Node position.
+		 */
+		public E get(int position) {
+			Node current = head;
+			int count = 1;
+			while (count < position) {
+				current = current.next;
+			}
 			return current.data;
 		}
 
