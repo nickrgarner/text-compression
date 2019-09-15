@@ -4,14 +4,29 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Class defines state and main method for text compression utility. First
+ * character of input file determines which method runs, with repeated words in
+ * input replaced in output by int position in a linked list.
+ * 
+ * @author Nick Garner
+ *
+ */
 public class proj1 {
 
+	/** LinkedList of Strings to hold words read in from input */
 	private LinkedList<String> list;
 
+	/** Null constructor initializes linked list */
 	public proj1() {
 		list = new LinkedList<String>();
 	}
 
+	/**
+	 * Starting point of program. Defines reader object and controls program flow
+	 * into proper algorithm.
+	 * 
+	 */
 	public static void main(String[] args) {
 		// Create compressor object and reader
 		proj1 compressor = new proj1();
@@ -22,10 +37,8 @@ public class proj1 {
 			if (firstChar == 48) {
 				// Consume space
 				input.read();
-				// TODO Decompress
 				compressor.decompress(input);
 			} else {
-				// TODO Compress
 				compressor.compress(input, firstChar);
 			}
 		} catch (IOException e) {
@@ -34,9 +47,10 @@ public class proj1 {
 	}
 
 	/**
-	 * Parsing character-by-character now with Buffered Reader
+	 * Reads input from stdin and prints to stdout, replacing frequent words with
+	 * integers. Integers represent word's position in linked list of read words.
 	 * 
-	 * @param input
+	 * @param input BufferedReader object parsing from stdin
 	 */
 	public void compress(BufferedReader input, int firstChar) {
 		// Tallies of chars read and printed, for stats line at end
@@ -102,12 +116,21 @@ public class proj1 {
 		System.out.print("0 Uncompressed: " + inCount + " bytes;  Compressed: " + outCount + " bytes");
 	}
 
+	/**
+	 * Reads from stdin and prints decompressed text to stdout. Words read in are
+	 * placed in a LinkedList, and ints read in are replaced by the word at that
+	 * list position.
+	 * 
+	 * @param input BufferedReader object parsing text from stdin
+	 */
 	public void decompress(BufferedReader input) {
-		// TODO Check for 0 to know when to chop off stats line
 		try {
+			// Number of next char from BufferedReader
 			int charNumber = input.read();
+			// Cast charNumber to char
 			char symbol = (char) charNumber;
 
+			// Outer loop, run until hitting 0 in stats line
 			while (charNumber != 48) {
 				// Word currently parsing
 				String word = "";
@@ -176,20 +199,6 @@ public class proj1 {
 			head = new Node(null);
 			size = 0;
 		}
-
-//		/**
-//		 * Creates new LinkedList with head Node containing given data.
-//		 * 
-//		 * @param data Data to hold in the head Node of the new LinkedList.
-//		 */
-//		public LinkedList(E data) {
-//			head = new Node(data);
-//			if (head.data == null) {
-//				size = 0;
-//			} else {
-//				size = 1;
-//			}
-//		}
 
 		/**
 		 * Creates a new head Node at the front of the list with the given data and
