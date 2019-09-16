@@ -32,6 +32,7 @@ public class proj1 {
 		proj1 compressor = new proj1();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
+		// Read & store first char, use to determine method to run
 		try {
 			int firstChar = input.read();
 			if (firstChar == 48) {
@@ -73,7 +74,7 @@ public class proj1 {
 				// Word currently parsing
 				String word = "";
 				// Loop to end of word
-				while (Character.isLetter(symbol)) {
+				while (Character.isLetter(symbol) || symbol == '\'') {
 					word += symbol;
 					charNumber = input.read();
 					if (charNumber == -1) {
@@ -135,7 +136,7 @@ public class proj1 {
 				// Word currently parsing
 				String word = "";
 				// Loop to end of word via letters or digits
-				while (Character.isLetter(symbol) || Character.isDigit(symbol)) {
+				while (Character.isLetter(symbol) || Character.isDigit(symbol) || symbol == '\'') {
 					word += symbol;
 					charNumber = input.read();
 //					if (charNumber == 48) {
@@ -152,6 +153,7 @@ public class proj1 {
 						// Hit stats line, exit loop
 						break;
 					} else if (Integer.valueOf(word) != 1) {
+						// Word is in list, remove and add to front
 						String temp = list.remove(Integer.valueOf(word));
 						list.addToFront(temp);
 					}
