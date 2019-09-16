@@ -139,12 +139,6 @@ public class proj1 {
 				while (Character.isLetter(symbol) || Character.isDigit(symbol) || symbol == '\'') {
 					word += symbol;
 					charNumber = input.read();
-//					if (charNumber == 48) {
-//						// Hit stats line, exit loop
-//						break;
-//					} else {
-//						symbol = (char) charNumber;
-//					}
 					symbol = (char) charNumber;
 				}
 				// Hit end of word, search list if digit or print and add to list if word
